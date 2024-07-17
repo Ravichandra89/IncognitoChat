@@ -17,7 +17,6 @@ export interface User extends Document {
 }
 
 // Creating the Schema's
-
 const messageSchema : Schema<Message> = new mongoose.Schema({
     content: {
         required: true,
