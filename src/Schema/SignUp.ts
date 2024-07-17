@@ -11,5 +11,5 @@ export const SignUpSchema = z.object({
     email: z.string().email({message : "Invalid Email format"}),
     password: z
     .string()
-    .min(6, "Password Must be at least 6 characters");
+    .min(6, "Password Must be at least 6 characters")
 })
