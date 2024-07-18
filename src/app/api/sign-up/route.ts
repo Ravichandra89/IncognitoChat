@@ -11,18 +11,18 @@ export async function POST(request: Request) {
     const { username, email, password } = await request.json();
 
     // Find this user Exist or Not
-    const existingUserByUserName = User.findOne({
+    const existingUserByUserName = await User.findOne({
       username,
       isVerified: true,
     });
 
     if (existingUserByUserName) {
-      return Response.json(
-        {
+      return new Response(
+        JSON.stringify({
           success: false,
           message: "Username is already taken",
-        },
-        { status: 400 }
+        }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
 
@@ -34,30 +34,29 @@ export async function POST(request: Request) {
 
     if (existingUserByEmail) {
       if (existingUserByEmail.isVerified) {
-        // TODO: Write Here the concept
-        return Response.json(
-          {
+        return new Response(
+          JSON.stringify({
             success: false,
             message: "Email is already taken",
-          },
-          { status: 400 }
+          }),
+          { status: 400, headers: { "Content-Type": "application/json" } }
         );
       } else {
-        const HashedPassword = await bcrypt(password, saltRounds);
-        existingUserByEmail.password = HashedPassword;
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
+        existingUserByEmail.password = hashedPassword;
         existingUserByEmail.verifyCode = verifyCode;
         existingUserByEmail.verifyCodeExpireAt = new Date(Date.now() + 3600000);
         await existingUserByEmail.save();
       }
     } else {
       // Create New User - Encrypting password by bcrypt
-      const HashedPass = await bcrypt.hash(password, saltRounds);
+      const hashedPass = await bcrypt.hash(password, saltRounds);
       const expiryDate = new Date();
       expiryDate.setHours(expiryDate.getHours() + 1);
 
       const newUser = new User({
         username,
-        password: HashedPass,
+        password: hashedPass,
         email,
         verifyCode,
         verifyCodeExpireAt: expiryDate,
@@ -66,34 +65,37 @@ export async function POST(request: Request) {
         message: [],
       });
 
-      newUser.save();
+      await newUser.save();
     }
 
-    // TODO: Send The Verification Code - Use the SendVarification
+    // Send The Verification Code - Use the SendVerification
     const emailResponse = await SendVerification(email, username, verifyCode);
 
     if (!emailResponse.success) {
-      return Response.json(
-        {
+      return new Response(
+        JSON.stringify({
           success: false,
           message: emailResponse.message,
-        },
-        { status: 400 }
+        }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
       );
-    };
+    }
 
-    return Response.json({
-      success: true,
-      message: "User Created Successfully!",
-    }, {status : 200});
+    return new Response(
+      JSON.stringify({
+        success: true,
+        message: "User Created Successfully!",
+      }),
+      { status: 200, headers: { "Content-Type": "application/json" } }
+    );
   } catch (error) {
     console.error("Error Registering User", error);
-    return Response.json(
-      {
+    return new Response(
+      JSON.stringify({
         success: false,
         message: "Error registering user",
-      },
-      { status: 500 }
+      }),
+      { status: 500, headers: { "Content-Type": "application/json" } }
     );
-  }
-}
+  };
+};
