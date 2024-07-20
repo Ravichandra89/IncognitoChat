@@ -68,4 +68,49 @@ export async function POST(request: Request) {
 
 export async function GET(request: Request) {
   await DbConnect();
+
+  const session = getServerSession(authOptions);
+  const user: User = session?.user as User;
+
+  if (!session || !session.user) {
+    return new Response(
+      JSON.stringify({
+        success: false,
+        message: "Not Authenticated",
+      }),
+      { status: 400 }
+    );
+  }
+
+  try {
+    const foundUser = await userModel.findById(user._id);
+
+    if (!foundUser) {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          message: "User not found",
+        }),
+        { status: 400 }
+      );
+    }
+
+    // Return The IsAcceptingMessages status to user
+    return new Response(
+      JSON.stringify({
+        success: true,
+        isAcceptingMessages: foundUser.isAcceptingMessages,
+      }),
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Error retrieving message acceptance status", error);
+    return new Response(
+      JSON.stringify({
+        success: false,
+        message: "Error retrieving message acceptance status",
+      }),
+      { status: 400 }
+    );
+  }
 }
