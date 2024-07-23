@@ -31,7 +31,7 @@ export async function POST(request: Request) {
     }
 
     const newMessage = { content, createdAt: new Date() };
-    user.message.push(newMessagea as Message);
+    user.message.push(newMessage as Message);
     await user.save();
 
     return new Response(

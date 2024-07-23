@@ -68,7 +68,7 @@ export async function POST(request: Request) {
       await newUser.save();
     }
 
-    // Send The Verification Code - Use the SendVerification
+    // Send The Verification Code - Use the SendVerification() Method
     const emailResponse = await SendVerification(email, username, verifyCode);
 
     if (!emailResponse.success) {
@@ -97,5 +97,5 @@ export async function POST(request: Request) {
       }),
       { status: 500, headers: { "Content-Type": "application/json" } }
     );
-  };
-};
+  }
+}
