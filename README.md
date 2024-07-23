@@ -71,7 +71,7 @@ Welcome to the Anonymous Chat Application built using Next.js! This platform all
 
 - **ChaiAurCode YouTube Channel by Hitesh Choudhry**: This project was inspired by and built with the help of tutorials from [ChaiAurCode](https://www.youtube.com/c/HiteshChoudharydotcom).
 - **Next.js Documentation**: For detailed information on Next.js, visit the [Next.js documentation](https://nextjs.org/docs).
-- **ShadCN UI Library**: This project uses the ShadCN UI library for UI components. Check out the [ShadCN UI documentation](https://shadcn.dev/docs).
+- **ShadCN UI Library**: This project uses the ShadCN UI library for UI components. Check out the [ShadCN UI documentation](https://ui.shadcn.com/docs).
 - **Resend Mail **: This project uses the Resend Email Verification. Check Out the [Resend Docs](https://resend.com/nextjs).
 
 ## Contributing
