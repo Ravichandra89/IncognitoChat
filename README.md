@@ -80,4 +80,4 @@ Contributions are welcome! Please open an issue or submit a pull request with yo
 
 ---
 
-Made with ❤️ by [RAVI CHANDRA](https://github.com/settings/profile)
+Made with ❤️ by [RAVI CHANDRA](https://github.com/Ravichandra89)
