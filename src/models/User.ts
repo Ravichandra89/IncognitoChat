@@ -12,7 +12,7 @@ export interface User extends Document {
     verifyCode: string,
     verifyCodeExpireAt: Date,
     isVerified : boolean,
-    isAcceptingMessage: boolean,
+    isAcceptingMessages: boolean,
     message: Message[]
 }
 
@@ -58,7 +58,7 @@ const userSchema : Schema<User> = new mongoose.Schema({
         type : Boolean,
         default : false,
     },
-    isAcceptingMessage : {
+    isAcceptingMessages : {
         type : Boolean,
         default : true,
     },
