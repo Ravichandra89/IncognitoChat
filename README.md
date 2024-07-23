@@ -1,6 +1,6 @@
 # Anonymous Chat Application
 
-Welcome to the Anonymous Chat Application built using Next.js! This platform allows users to send feedback anonymously to any user on the platform. 
+Welcome to the Anonymous Chat Application built using Next.js! This platform allows users to send feedback anonymously to any user on the platform.
 
 ## Features
 
@@ -8,17 +8,18 @@ Welcome to the Anonymous Chat Application built using Next.js! This platform all
 - **Sign-In**: Existing users can sign in to access their dashboard.
 - **Verification Code**: Users receive a verification code to confirm their email address.
 - **User Dashboard**: From the dashboard, users can send and receive anonymous messages.
+- **Stack** :- NextJs, NextAuth, Resend-Mail, MongoDB, Shadcn Ui, Zod, TailwindCss
 
 ## Installation
 
 1. **Clone the repository**:
     ```sh
-    git clone https://github.com/yourusername/your-repo-name.git
+    git clone https://github.com/Ravichandra89/Anonymous-Chat-Application.git
     ```
 
 2. **Navigate to the project directory**:
     ```sh
-    cd your-repo-name
+    cd Anonymous-Chat-Application
     ```
 
 3. **Install dependencies**:
@@ -29,8 +30,9 @@ Welcome to the Anonymous Chat Application built using Next.js! This platform all
 4. **Create a `.env` file in the root directory and add the necessary environment variables**:
     ```env
     NEXT_PUBLIC_API_URL=your_api_url
-    DATABASE_URL=your_database_url
-    JWT_SECRET=your_jwt_secret
+    MONGODB_URL=your_database_url
+    RESEND_API_KEY=your_resend_url
+    NEXTAUTH_SECRET=NextauthSecret
     ```
 
 5. **Run the development server**:
