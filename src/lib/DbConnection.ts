@@ -15,7 +15,6 @@ async function DbConnection() : Promise<void> {
         console.log("Already Connected");
         return;
     }
-
     try {
         if(!process.env.MONGODB_URL){
             console.log("MONGODB_URL is Not Defined in Env file");
