@@ -54,7 +54,6 @@ function Dashboard() {
 
   // Function to trigger IsAcceptingMessages status
   const handleAcceptMessages = useCallback(async () => {
-    setLoadingSwitch(true);
     try {
       const response = await axios.post<ApiResponse>("/api/accept-messages", {
         acceptMessages: !acceptMessages,
@@ -74,5 +73,37 @@ function Dashboard() {
         variant: "destructive",
       });
     }
-  }, []);
+  }, [toast, setValue]);
+
+  // Get Messages Function
+  const fetchMessages = useCallback(
+    async (refresh: boolean = false) => {
+      setLoading(true);
+      setLoadingSwitch(true);
+
+      try {
+        const response = await axios.get("/api/get-messages");
+        setMessages(response.data.messages || []);
+        if (refresh) {
+          toast({
+            title: "Refreshed Messages",
+            description: "Showing Latest Messages",
+          });
+        }
+      } catch (error) {
+        const axiosError = error as AxiosError<ApiResponse>;
+        toast({
+          title: "Failed",
+          description:
+            axiosError.response?.data.message ??
+            "Failed To Fetch Refresh Messages",
+          variant: "destructive",
+        });
+      } finally {
+        setLoading(false);
+        setLoadingSwitch(false);
+      }
+    },
+    [setLoading, setLoadingSwitch, toast]
+  );
 }
