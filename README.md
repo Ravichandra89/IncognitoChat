@@ -8,7 +8,7 @@ Welcome to the Anonymous Chat Application built using Next.js! This platform all
 - **Sign-In**: Existing users can sign in to access their dashboard.
 - **Verification Code**: Users receive a verification code to confirm their email address.
 - **User Dashboard**: From the dashboard, users can send and receive anonymous messages.
-- **Stack** :- NextJs, NextAuth, Resend-Mail, MongoDB, Shadcn Ui, Zod, TailwindCss
+- *Stack* :- NextJs, NextAuth, Resend-Mail, MongoDB, Shadcn Ui, Zod, TailwindCss
 
 ## Installation
 
