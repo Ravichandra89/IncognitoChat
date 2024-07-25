@@ -77,7 +77,8 @@ Welcome to the Anonymous Chat Application built using Next.js! This platform all
 ## Contributing
 Contributions are welcome! Please open an issue or submit a pull request with your improvements.
 
-
 ---
 
 Made with ❤️ by [RAVI CHANDRA](https://github.com/Ravichandra89)
+
+<img width="1710" alt="Screenshot 2024-07-25 at 12 52 46 PM" src="https://github.com/user-attachments/assets/6011748d-fb40-4142-b75a-2f46f7f6addc">
