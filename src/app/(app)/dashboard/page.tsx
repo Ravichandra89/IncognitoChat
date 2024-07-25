@@ -16,12 +16,12 @@ import { useForm } from "react-hook-form";
 import { messageAccept } from "@/Schema/AccecptMessage";
 
 function Dashboard() {
-  const [messages, setMessages] = useState("");
+  const [messages, setMessages] = useState([]);
   const [IsLoading, setIsLoading] = useState(false);
   const [loadingSwitch, setLoadingSwitch] = useState(false);
 
   // Zod Resolver
-  const from = useForm({
+  const form = useForm({
     resolver: zodResolver(messageAccept),
   });
 
@@ -73,11 +73,11 @@ function Dashboard() {
         variant: "destructive",
       });
     }
-  }, [toast, setValue]);
+  }, [toast, setValue, acceptMessages]);
 
   // Get Messages Function
   const fetchMessages = useCallback(
-    async (refresh: boolean = false) => {
+    async (refresh = false) => {
       setIsLoading(true);
       setLoadingSwitch(true);
 
@@ -104,14 +104,14 @@ function Dashboard() {
         setLoadingSwitch(false);
       }
     },
-    [setIsLoading, setLoadingSwitch, toast]
+    [toast]
   );
 
   useEffect(() => {
     if (!session || !session.user) return;
 
     fetchMessages();
-  }, [session, setValue, toast, fetchAcceptMessages, fetchMessages]);
+  }, [session, fetchMessages, fetchAcceptMessages]);
 
   if (!session || !session.user) {
     return <div></div>;
@@ -136,7 +136,7 @@ function Dashboard() {
   // FrontEnd part
 
   return (
-    <div classgName="my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-white rounded w-full max-w-6xl">
+    <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-white rounded w-full max-w-6xl">
       <h1 className="text-4xl font-bold mb-4">User Dashboard</h1>
 
       <div className="mb-4">
@@ -155,15 +155,15 @@ function Dashboard() {
 
       {/* Add Switch Here */}
       <div className="mb-4">
-        <switch
+        <Switch
           {...register("acceptMessages")}
           checked={acceptMessages}
           onCheckedChange={handleAcceptMessages}
-          disable={loadingSwitch}
+          disabled={loadingSwitch}
         />
 
         <span className="ml-2">
-          Accespt Messages : {acceptMessages ? "Yes" : "No"}
+          Accept Messages : {acceptMessages ? "Yes" : "No"}
         </span>
       </div>
 
@@ -189,17 +189,16 @@ function Dashboard() {
 
       <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
         {messages.length > 0 ? (
-          messages.map((message, index) => {
+          messages.map((message) => (
             <MessageCard
               key={message._id}
               message={message}
               onMessageDelete={handleDeleteMessage}
-            />;
-          })
+            />
+          ))
         ) : (
           <p>No messages to display.</p>
         )}
-        ;
       </div>
     </div>
   );
